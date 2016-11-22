@@ -9,7 +9,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
       <thead>
         <tr role="row">
           <th *ngFor="let column of columns" [ngTableSorting]="config" [column]="column" 
-              (sortChanged)="onChangeTable($event)" ngClass="{{column.className || ''}}">
+              (sortChanged)="onChangeTable($event)" >
             {{column.title}}
             <i *ngIf="config && column.sort" class="pull-right fa"
               [ngClass]="{'fa-chevron-down': column.sort === 'desc', 'fa-chevron-up': column.sort === 'asc'}"></i>
@@ -18,7 +18,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
       </thead>
       <tbody>
       <tr *ngIf="showFilterRow">
-        <td *ngFor="let column of columns">
+        <td *ngFor="let column of columns" >
           <input *ngIf="column.filtering" placeholder="{{column.filtering.placeholder}}"
                  [ngTableFiltering]="column.filtering"
                  class="form-control"
@@ -26,8 +26,8 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
                  (tableChanged)="onChangeTable(config)"/>
         </td>
       </tr>
-        <tr *ngFor="let row of rows">
-          <td (click)="cellClick(row, column.name)" *ngFor="let column of columns" [innerHtml]="sanitize(getData(row, column.name))"></td>
+        <tr *ngFor="let row of rows" >
+          <td ngClass="{{column.className || ''}}" (click)="cellClick(row, column.name)" *ngFor="let column of columns" [innerHtml]="sanitize(getData(row, column.name))"></td>
         </tr>
       </tbody>
     </table>
